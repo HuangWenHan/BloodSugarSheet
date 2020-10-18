@@ -18,11 +18,21 @@ class ViewController: UIViewController {
 
     var dataSource: UICollectionViewDiffableDataSource<Int, Int>! = nil
     var textCellTextfiledTextArrayUsingIdentifier: [String] = {
-        var temp: [String] = []
-        for i in 0..<350 {
-            temp.append("")
+        
+        guard let myDefaults: [String] = UserDefaults.standard.value(forKey: "textCellTextfiledTextArrayUsingIdentifier") as? [String] else {
+            var temp: [String] = []
+            for i in 0..<350 {
+                temp.append("")
+            }
+            UserDefaults.standard.setValue(temp, forKey: "textCellTextfiledTextArrayUsingIdentifier")
+            return temp
         }
-        return temp
+        
+//        var temp: [String] = []
+//        for i in 0..<350 {
+//            temp.append("")
+//        }
+        return myDefaults
     }()
     
     
@@ -263,5 +273,6 @@ extension ViewController: UICollectionViewDelegate {
 extension ViewController: TTextCellTextFiledDidEndEditing {
     func textCellTextFiledDidEndEditing(textFiledText: String, cellIdentifier: Int) {
         self.textCellTextfiledTextArrayUsingIdentifier[cellIdentifier] = textFiledText
+        UserDefaults.standard.setValue(self.textCellTextfiledTextArrayUsingIdentifier, forKey: "textCellTextfiledTextArrayUsingIdentifier")
     }
 }
