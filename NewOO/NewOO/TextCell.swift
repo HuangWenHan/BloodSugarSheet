@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 protocol TTextCellTextFiledDidEndEditing: NSObjectProtocol {
-    func textCellTextFiledDidEndEditing(textFiledText: String, currentCellIdentifier: Int)
+    //func textCellTextFiledDidEndEditing(textFiledText: String, currentCellIdentifier: Int)
+    func textCellTextFiledDidEndEditing(textFiledText: String, cellIdentifier: Int)
 }
 
 class TextCell: UICollectionViewCell {
@@ -49,13 +50,9 @@ class TextCell: UICollectionViewCell {
 //        temp.addTarget(self, action: #selector(TextCell.clickedBtn), for: UIControl.Event.touchUpInside)
 //        return temp
 //    }()
-    var model: TextCellModel? {
-        didSet {
-            bloodSugarTextfiled.text = model?.bloodSugerContentStr
-            currentCellIdentifier = model?.bloodSugerCellIdentifier
-        }
-    }
-    var currentCellIdentifier: Int?
+    
+    var cellIdentifier: Int?
+    
 }
 
 extension TextCell {
@@ -94,7 +91,7 @@ extension TextCell {
 
 extension TextCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
-        delegate?.textCellTextFiledDidEndEditing(textFiledText: textField.text!, currentCellIdentifier: currentCellIdentifier!)
+        delegate?.textCellTextFiledDidEndEditing(textFiledText: textField.text!, cellIdentifier: cellIdentifier!)
     }
 }
 

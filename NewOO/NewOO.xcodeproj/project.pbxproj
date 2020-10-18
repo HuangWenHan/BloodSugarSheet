@@ -19,7 +19,6 @@
 		16002599253C99CB000BC4DB /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */; };
 		160025A7253C9DB9000BC4DB /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */; };
 		160025A8253C9DB9000BC4DB /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */; };
-		160025B9253CBB10000BC4DB /* TextCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160025B8253CBB10000BC4DB /* TextCellModel.swift */; };
 		9814228A942217EE7F6C1E70 /* Pods_NewOO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BDF6F0FEED26522EFDB46A /* Pods_NewOO.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +58,6 @@
 		16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
-		160025B8253CBB10000BC4DB /* TextCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCellModel.swift; sourceTree = "<group>"; };
 		CF1D8B9F656CCDA768BEDF5F /* Pods-NewOO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewOO.debug.xcconfig"; path = "Target Support Files/Pods-NewOO/Pods-NewOO.debug.xcconfig"; sourceTree = "<group>"; };
 		F0BDF6F0FEED26522EFDB46A /* Pods_NewOO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewOO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84F2DE299ABBE8636390E74 /* Pods-NewOO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewOO.release.xcconfig"; path = "Target Support Files/Pods-NewOO/Pods-NewOO.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */,
 				16002540253C607D000BC4DB /* AppDelegate.swift */,
 				1600257E253C726D000BC4DB /* TextCell.swift */,
-				160025B8253CBB10000BC4DB /* TextCellModel.swift */,
 				16002542253C607D000BC4DB /* SceneDelegate.swift */,
 				16002544253C607D000BC4DB /* ViewController.swift */,
 				16002546253C607D000BC4DB /* Main.storyboard */,
@@ -345,7 +342,6 @@
 				16002541253C607D000BC4DB /* AppDelegate.swift in Sources */,
 				1600257F253C726D000BC4DB /* TextCell.swift in Sources */,
 				160025A8253C9DB9000BC4DB /* UILabel+Extension.swift in Sources */,
-				160025B9253CBB10000BC4DB /* TextCellModel.swift in Sources */,
 				16002543253C607D000BC4DB /* SceneDelegate.swift in Sources */,
 				16002599253C99CB000BC4DB /* TitleSupplementaryView.swift in Sources */,
 				160025A7253C9DB9000BC4DB /* UIButton+Extension.swift in Sources */,

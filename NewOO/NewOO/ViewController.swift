@@ -16,18 +16,17 @@ class ViewController: UIViewController {
         case main
     }
 
-    //var dataSource: UICollectionViewDiffableDataSource<Section, Int>! = nil
     var dataSource: UICollectionViewDiffableDataSource<Int, Int>! = nil
-    var textCellTextfiledTextAndIdentifierDataSource: [TextCellModel] = {
-        var temp: [TextCellModel] = []
+    var textCellTextfiledTextArrayUsingIdentifier: [String] = {
+        var temp: [String] = []
         for i in 0..<350 {
-            var model: TextCellModel = TextCellModel(dict: ["bloodSugerContentStr" : ""])
-            //model.bloodSugerContentStr = "----"
-            model.bloodSugerCellIdentifier = i
-            temp.append(model)
+            temp.append("")
         }
         return temp
     }()
+    
+    
+    
     var collectionView: UICollectionView! = nil
     var conditionArray: Array = ["早饭前", "早饭后", "午饭前", "午饭后", "晚饭前", "晚饭后", "睡前"]
     override func viewDidLoad() {
@@ -77,8 +76,11 @@ extension ViewController {
         let cellRegistration = UICollectionView.CellRegistration<TextCell, Int> { (cell, indexPath, identifier) in
             // Populate the cell with our item description.
             cell.dayLabel.text = "第\( (identifier) % 7 + 1)天"
-            cell.model = self.textCellTextfiledTextAndIdentifierDataSource[identifier]
-            cell.bloodSugarTextfiled.text = self.textCellTextfiledTextAndIdentifierDataSource[identifier].bloodSugerContentStr
+            cell.cellIdentifier = identifier
+            cell.bloodSugarTextfiled.text = self.textCellTextfiledTextArrayUsingIdentifier[identifier]
+            //cell.model = self.textCellTextfiledTextAndIdentifierDataSource[identifier]
+            //cell.bloodSugarTextfiled.text = self.textCellTextfiledTextAndIdentifierDataSource[identifier].bloodSugerContentStr
+            
             cell.delegate = self
             cell.conditionLabel.text = self.conditionArray[(identifier % 7)]
             cell.contentView.backgroundColor = UIColor.orange
@@ -250,9 +252,6 @@ extension ViewController {
 //}
 
 extension ViewController: UICollectionViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        IQKeyboardManager.shared.resignFirstResponder()
-//    }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         IQKeyboardManager.shared.resignFirstResponder()
     }
@@ -262,7 +261,7 @@ extension ViewController: UICollectionViewDelegate {
 }
 
 extension ViewController: TTextCellTextFiledDidEndEditing {
-    func textCellTextFiledDidEndEditing(textFiledText: String, currentCellIdentifier: Int) {
-        self.textCellTextfiledTextAndIdentifierDataSource[currentCellIdentifier].bloodSugerContentStr = textFiledText
+    func textCellTextFiledDidEndEditing(textFiledText: String, cellIdentifier: Int) {
+        self.textCellTextfiledTextArrayUsingIdentifier[cellIdentifier] = textFiledText
     }
 }
