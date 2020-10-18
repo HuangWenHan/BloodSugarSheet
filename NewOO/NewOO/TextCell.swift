@@ -18,8 +18,9 @@ class TextCell: UICollectionViewCell {
     static let reuseIdentifier = "text-cell-reuse-identifier"
     
 
-//    @objc func clickedBtn() {
+//    @objc func clickedBtn(btn: UIButton) {
 //        print("锁定逻辑")
+//
 //    }
     weak var delegate: TTextCellTextFiledDidEndEditing?
     override init(frame: CGRect) {
@@ -35,7 +36,7 @@ class TextCell: UICollectionViewCell {
     lazy var bloodSugarLabel: UILabel = UILabel(title: "血糖值:", fontSize: 20, color: UIColor.black, redundance: 0)
     lazy var bloodSugarTextfiled: UITextField = {
         let temp = UITextField()
-        temp.placeholder = "---"
+        temp.placeholder = "-----"
         temp.keyboardType = .decimalPad
         temp.layer.borderWidth = 1
         temp.layer.borderColor = UIColor.red.cgColor
@@ -47,7 +48,7 @@ class TextCell: UICollectionViewCell {
     }()
 //    fileprivate lazy var confirmBtn: UIButton = {
 //        let temp = UIButton(title: "锁定", fontSize: 22, color: .black, imageName: nil)
-//        temp.addTarget(self, action: #selector(TextCell.clickedBtn), for: UIControl.Event.touchUpInside)
+//        temp.addTarget(self, action: #selector(TextCell.clickedBtn(btn:)), for: UIControl.Event.touchUpInside)
 //        return temp
 //    }()
     
@@ -83,7 +84,7 @@ extension TextCell {
         }
 //        confirmBtn.snp.makeConstraints { (make) in
 //            make.centerX.equalTo(contentView)
-//            make.top.equalTo(bloodSugarTextfiled.snp.bottom).offset(10)
+//            make.top.equalTo(bloodSugarTextfiled.snp.bottom).offset(12)
 //        }
     }
     

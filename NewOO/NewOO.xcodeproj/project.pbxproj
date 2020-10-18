@@ -19,6 +19,10 @@
 		16002599253C99CB000BC4DB /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */; };
 		160025A7253C9DB9000BC4DB /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */; };
 		160025A8253C9DB9000BC4DB /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */; };
+		1685FBC3253CE79700D95EA6 /* RecordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1685FBC2253CE79700D95EA6 /* RecordVC.swift */; };
+		1685FBCC253CE82D00D95EA6 /* ContentLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1685FBCA253CE82D00D95EA6 /* ContentLabelCell.swift */; };
+		1685FBCD253CE82D00D95EA6 /* BottomBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1685FBCB253CE82D00D95EA6 /* BottomBtnCell.swift */; };
+		1685FBDC253CF85A00D95EA6 /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1685FBDB253CF85A00D95EA6 /* DateValueFormatter.swift */; };
 		9814228A942217EE7F6C1E70 /* Pods_NewOO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0BDF6F0FEED26522EFDB46A /* Pods_NewOO.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +62,10 @@
 		16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		1685FBC2253CE79700D95EA6 /* RecordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVC.swift; sourceTree = "<group>"; };
+		1685FBCA253CE82D00D95EA6 /* ContentLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentLabelCell.swift; sourceTree = "<group>"; };
+		1685FBCB253CE82D00D95EA6 /* BottomBtnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomBtnCell.swift; sourceTree = "<group>"; };
+		1685FBDB253CF85A00D95EA6 /* DateValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
 		CF1D8B9F656CCDA768BEDF5F /* Pods-NewOO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewOO.debug.xcconfig"; path = "Target Support Files/Pods-NewOO/Pods-NewOO.debug.xcconfig"; sourceTree = "<group>"; };
 		F0BDF6F0FEED26522EFDB46A /* Pods_NewOO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewOO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84F2DE299ABBE8636390E74 /* Pods-NewOO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewOO.release.xcconfig"; path = "Target Support Files/Pods-NewOO/Pods-NewOO.release.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +122,8 @@
 		1600253F253C607D000BC4DB /* NewOO */ = {
 			isa = PBXGroup;
 			children = (
+				1685FBCB253CE82D00D95EA6 /* BottomBtnCell.swift */,
+				1685FBCA253CE82D00D95EA6 /* ContentLabelCell.swift */,
 				160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */,
 				160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */,
 				16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */,
@@ -121,6 +131,8 @@
 				1600257E253C726D000BC4DB /* TextCell.swift */,
 				16002542253C607D000BC4DB /* SceneDelegate.swift */,
 				16002544253C607D000BC4DB /* ViewController.swift */,
+				1685FBDB253CF85A00D95EA6 /* DateValueFormatter.swift */,
+				1685FBC2253CE79700D95EA6 /* RecordVC.swift */,
 				16002546253C607D000BC4DB /* Main.storyboard */,
 				16002549253C607E000BC4DB /* Assets.xcassets */,
 				1600254B253C607E000BC4DB /* LaunchScreen.storyboard */,
@@ -339,12 +351,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				16002545253C607D000BC4DB /* ViewController.swift in Sources */,
+				1685FBC3253CE79700D95EA6 /* RecordVC.swift in Sources */,
 				16002541253C607D000BC4DB /* AppDelegate.swift in Sources */,
+				1685FBDC253CF85A00D95EA6 /* DateValueFormatter.swift in Sources */,
 				1600257F253C726D000BC4DB /* TextCell.swift in Sources */,
 				160025A8253C9DB9000BC4DB /* UILabel+Extension.swift in Sources */,
 				16002543253C607D000BC4DB /* SceneDelegate.swift in Sources */,
+				1685FBCC253CE82D00D95EA6 /* ContentLabelCell.swift in Sources */,
 				16002599253C99CB000BC4DB /* TitleSupplementaryView.swift in Sources */,
 				160025A7253C9DB9000BC4DB /* UIButton+Extension.swift in Sources */,
+				1685FBCD253CE82D00D95EA6 /* BottomBtnCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
