@@ -93,6 +93,9 @@ extension TextCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.textCellTextFiledDidEndEditing(textFiledText: textField.text!, cellIdentifier: cellIdentifier!)
     }
+    
+    
+    
 }
 
 
