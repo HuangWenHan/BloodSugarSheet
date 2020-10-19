@@ -48,14 +48,14 @@ class RecordVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Grid"
+        navigationItem.title = "血糖记录表"
         configureHierarchy()
         configureDataSource()
         view.backgroundColor = UIColor.red
         NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         
     }
 }
@@ -117,7 +117,7 @@ extension RecordVC {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         collectionView.delegate = self
-       
+        collectionView.backgroundColor = UIColor.black
         view.addSubview(collectionView)
         
     }
@@ -130,14 +130,16 @@ extension RecordVC {
             cell.bloodSugarTextfiled.text = self.textCellTextfiledTextArrayUsingIdentifier[identifier]
             //cell.model = self.textCellTextfiledTextAndIdentifierDataSource[identifier]
             //cell.bloodSugarTextfiled.text = self.textCellTextfiledTextAndIdentifierDataSource[identifier].bloodSugerContentStr
-            
+           
             cell.delegate = self
             cell.delegate2 = self
             cell.delegate3 = self
             cell.conditionLabel.text = self.conditionArray[(identifier % 7)]
-            cell.contentView.backgroundColor = UIColor.orange
-            cell.layer.borderColor = UIColor.black.cgColor
+           // cell.contentView.backgroundColor = UIColor.white
+            cell.backgroundColor = UIColor.orange
+            cell.layer.borderColor = UIColor.lightGray.cgColor
             cell.layer.borderWidth = 1
+            cell.layer.cornerRadius = 10
 
             // 在这里给cell赋值 就不会有重用问题
         }
@@ -145,7 +147,7 @@ extension RecordVC {
         <TitleSupplementaryView>(elementKind: "Header") {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "第\(indexPath.section + 1)周:"
-            supplementaryView.backgroundColor = .lightGray
+            supplementaryView.backgroundColor = .cyan
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0
         }
@@ -156,7 +158,7 @@ extension RecordVC {
             let chartView: LineChartView = LineChartView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 200))
             chartView.dragEnabled = true
             //let chartView: LineChartView = LineChartView(frame: supplementaryView.frame)
-            chartView.backgroundColor = UIColor.purple
+            chartView.backgroundColor = UIColor.black
             let xAxis = chartView.xAxis
             xAxis.labelPosition = .bottom
             xAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
@@ -175,14 +177,14 @@ extension RecordVC {
             leftAxis.drawGridLinesEnabled = true
             leftAxis.granularityEnabled = true
             leftAxis.axisMinimum = 0
-            leftAxis.axisMaximum = 20
+            leftAxis.axisMaximum = 30
             leftAxis.yOffset = 0
             leftAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
 
             
             chartView.rightAxis.enabled = false
             chartView.legend.form = .line
-            chartView.animate(xAxisDuration: 1.5)
+            chartView.animate(xAxisDuration: 0.5)
             
             
             
@@ -219,13 +221,15 @@ extension RecordVC {
             let set1 = LineChartDataSet(entries: values, label: "血糖值")
             set1.axisDependency = .left
             set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
-            set1.lineWidth = 1.5
+            //set1.setColor(UIColor.black)
+            set1.lineWidth = 2
             set1.drawCirclesEnabled = false
             set1.drawValuesEnabled = true
             set1.fillAlpha = 0.26
             set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
             set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
             set1.drawCircleHoleEnabled = false
+
             
             let data = LineChartData(dataSet: set1)
             data.setValueTextColor(.white)
@@ -238,7 +242,7 @@ extension RecordVC {
             
             supplementaryView.addSubview(chartView)
 
-            supplementaryView.backgroundColor = .lightGray
+            supplementaryView.backgroundColor = .cyan
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0
         }
@@ -418,9 +422,14 @@ extension RecordVC: UICollectionViewDelegate {
 }
 
 extension RecordVC: TTextCellTextFiledDidEndEditing {
+    func textCellTextFiledFinallyDidEndEditing() {
+        collectionView.reloadData()
+    }
+    
     func textCellTextFiledDidEndEditing(textFiledText: String, cellIdentifier: Int) {
         self.textCellTextfiledTextArrayUsingIdentifier[cellIdentifier] = textFiledText
         UserDefaults.standard.setValue(self.textCellTextfiledTextArrayUsingIdentifier, forKey: "textCellTextfiledTextArrayUsingIdentifier")
+        
     }
 }
 
@@ -453,5 +462,6 @@ extension RecordVC: doneClickedProtocol {
             self.collectionView.setContentOffset(contentOffset, animated: true)
             isTextFieldHiden = false
         }
+        collectionView.reloadData()
     }
 }
