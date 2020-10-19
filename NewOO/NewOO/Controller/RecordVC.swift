@@ -36,7 +36,7 @@ class RecordVC: UIViewController {
     var collectionView: UICollectionView! = nil
     var conditionArray: Array = ["早饭前", "早饭后", "午饭前", "午饭后", "晚饭前", "晚饭后", "睡前"]
     var currentHideTextFieldRect: CGRect = CGRect.zero
-
+    var isTextFieldHiden: Bool?
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(true)
 //        IQKeyboardManager.shared.enable = false
@@ -154,21 +154,20 @@ extension RecordVC {
             (supplementaryView, string, indexPath) in
             supplementaryView.label.text = "FOOTER"
             let chartView: LineChartView = LineChartView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 200))
+            chartView.dragEnabled = true
+            //let chartView: LineChartView = LineChartView(frame: supplementaryView.frame)
             chartView.backgroundColor = UIColor.purple
-            
-
-            
-            
-            
             let xAxis = chartView.xAxis
-            xAxis.labelPosition = .topInside
+            xAxis.labelPosition = .bottom
             xAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
             xAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
-            xAxis.drawAxisLineEnabled = false
+            xAxis.drawAxisLineEnabled = true
             xAxis.drawGridLinesEnabled = true
-            xAxis.centerAxisLabelsEnabled = true
+            xAxis.centerAxisLabelsEnabled = false
             xAxis.granularity = 3600
             xAxis.valueFormatter = DateValueFormatter()
+            xAxis.labelCount = 7
+            xAxis.xOffset = 0
             
             let leftAxis = chartView.leftAxis
             leftAxis.labelPosition = .insideChart
@@ -176,34 +175,53 @@ extension RecordVC {
             leftAxis.drawGridLinesEnabled = true
             leftAxis.granularityEnabled = true
             leftAxis.axisMinimum = 0
-            leftAxis.axisMaximum = 170
-            leftAxis.yOffset = -9
+            leftAxis.axisMaximum = 20
+            leftAxis.yOffset = 0
             leftAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
 
             
             chartView.rightAxis.enabled = false
             chartView.legend.form = .line
-            chartView.animate(xAxisDuration: 2.5)
+            chartView.animate(xAxisDuration: 1.5)
             
             
             
             let now = Date().timeIntervalSince1970
             let hourSeconds: TimeInterval = 3600
             
-            let from = now - (Double(7) / 2) * hourSeconds
-            let to = now + (Double(7) / 2) * hourSeconds
+ //           let from = now - (Double(7) / 2) * hourSeconds
+//            let to = now + (Double(7) / 2) * hourSeconds
+            let from = now
+            let to = now + hourSeconds * 24 * 7
             
-            let values = stride(from: from, to: to, by: hourSeconds).map { (x) -> ChartDataEntry in
-                let y = arc4random_uniform(7) + 50
-                return ChartDataEntry(x: x, y: Double(y))
+//            let values = stride(from: from, to: to, by: hourSeconds).map { (x) -> ChartDataEntry in
+//                let y = arc4random_uniform(7) + 50
+//                return ChartDataEntry(x: x, y: Double(y))
+//            }
+            
+//            let values = stride(from: from, to: to, by: hourSeconds * 24 ).map { (x) -> ChartDataEntry in
+//                let y = arc4random_uniform(7) + 10
+//                return ChartDataEntry(x: x, y: Double(y))
+//            }
+            
+            
+            //数据
+            //let stringDataArray = self.textCellTextfiledTextArrayUsingIdentifier
+            
+            print(indexPath.section)
+            var values: [ChartDataEntry] = []
+            let dateArray = [1, 2, 3, 4, 5, 6, 7]
+            for i in dateArray {
+                let y: Double = Double(self.textCellTextfiledTextArrayUsingIdentifier[indexPath.section * 7 + i - 1]) ?? 0
+                values.append(ChartDataEntry(x: Double(i), y: y))
             }
             
-            let set1 = LineChartDataSet(entries: values, label: "DataSet 1")
+            let set1 = LineChartDataSet(entries: values, label: "血糖值")
             set1.axisDependency = .left
             set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
             set1.lineWidth = 1.5
             set1.drawCirclesEnabled = false
-            set1.drawValuesEnabled = false
+            set1.drawValuesEnabled = true
             set1.fillAlpha = 0.26
             set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
             set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
@@ -219,7 +237,7 @@ extension RecordVC {
             
             
             supplementaryView.addSubview(chartView)
-            
+
             supplementaryView.backgroundColor = .lightGray
             supplementaryView.layer.borderColor = UIColor.black.cgColor
             supplementaryView.layer.borderWidth = 1.0
@@ -395,14 +413,7 @@ extension RecordVC {
 extension RecordVC: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIApplication.shared.keyWindow?.endEditing(true)
-       // print(collectionView)
-        //print(collectionView.contentOffset)
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // print(indexPath)
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(collectionView.contentOffset)
+        isTextFieldHiden = false
     }
 }
 
@@ -424,6 +435,7 @@ extension RecordVC: TTextCellTextFiledShouldBeginEditing {
             self.collectionView.setContentOffset(contentOffset, animated: true)
             print("contentOffset!!!\(self.collectionView.contentOffset)")
              currentHideTextFieldRect = currentTextFieldRect
+            isTextFieldHiden = true
         } else {
             // 无遮挡
             
@@ -434,11 +446,12 @@ extension RecordVC: TTextCellTextFiledShouldBeginEditing {
 extension RecordVC: doneClickedProtocol {
     func doneclicked(btn: UIButton) {
         // 恢复collectionView的偏移量
-        print(self.collectionView.contentOffset)
         
-        let contentOffset = CGPoint(x: 0, y: self.collectionView.contentOffset.y - ((260 + 26 - (667 - currentHideTextFieldRect.minY * (-1)))))
-        self.collectionView.setContentOffset(contentOffset, animated: true)
+        if isTextFieldHiden ?? false {
+            print(self.collectionView.contentOffset)
+            let contentOffset = CGPoint(x: 0, y: self.collectionView.contentOffset.y - ((260 + 26 - (667 - currentHideTextFieldRect.minY * (-1)))))
+            self.collectionView.setContentOffset(contentOffset, animated: true)
+            isTextFieldHiden = false
+        }
     }
-    
-    
 }
