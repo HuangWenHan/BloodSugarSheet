@@ -13,16 +13,29 @@ protocol TTextCellTextFiledDidEndEditing: NSObjectProtocol {
     func textCellTextFiledDidEndEditing(textFiledText: String, cellIdentifier: Int)
 }
 
+protocol TTextCellTextFiledShouldBeginEditing: NSObjectProtocol {
+    //func textCellTextFiledDidEndEditing(textFiledText: String, currentCellIdentifier: Int)
+    func textCellTextFiledShouldBeginEditing(currentTextFieldRect: CGRect)
+}
+
+protocol doneClickedProtocol: NSObjectProtocol {
+    //func textCellTextFiledDidEndEditing(textFiledText: String, currentCellIdentifier: Int)
+    func doneclicked(btn: UIButton)
+}
+
 class TextCell: UICollectionViewCell {
     let label = UILabel()
     static let reuseIdentifier = "text-cell-reuse-identifier"
     
 
-//    @objc func clickedBtn(btn: UIButton) {
-//        print("锁定逻辑")
-//
-//    }
+    @objc func clickedBtn(btn: UIButton) {
+        self.bloodSugarTextfiled.resignFirstResponder()
+        delegate3?.doneclicked(btn: btn)
+    }
     weak var delegate: TTextCellTextFiledDidEndEditing?
+    weak var delegate2: TTextCellTextFiledShouldBeginEditing?
+    weak var delegate3: doneClickedProtocol?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         //configure()
@@ -38,6 +51,9 @@ class TextCell: UICollectionViewCell {
         let temp = UITextField()
         temp.placeholder = "-----"
         temp.keyboardType = .decimalPad
+        temp.addDoneOnKeyboardWithTarget(self, action: #selector(TextCell.clickedBtn(btn:)))
+
+        temp.keyboardToolbar.doneBarButton.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 13.5)], for: .normal)
         temp.layer.borderWidth = 1
         temp.layer.borderColor = UIColor.red.cgColor
         temp.contentHorizontalAlignment = .center
@@ -98,6 +114,14 @@ extension TextCell: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         print(textField.text!)
         delegate?.textCellTextFiledDidEndEditing(textFiledText: textField.text!, cellIdentifier: cellIdentifier!)
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldBeginEditing")
+        let window = UIApplication.shared.keyWindow
+        let rect = self.bloodSugarTextfiled.convert(self.bloodSugarTextfiled.bounds, from: window)
+        print(rect)
+        delegate2?.textCellTextFiledShouldBeginEditing(currentTextFieldRect: rect)
+        return true
     }
 }
 

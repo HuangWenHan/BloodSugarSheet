@@ -12,9 +12,12 @@ private let BottomBtnCellID = "BottomBtnCellID"
 
 class ViewController: UIViewController {
 
+    
+    
     override func loadView() {
         super.loadView()
         setupUI()
+        
     }
     
     override func viewDidLoad() {

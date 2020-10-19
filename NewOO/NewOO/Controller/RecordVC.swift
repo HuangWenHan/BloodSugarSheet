@@ -35,15 +35,49 @@ class RecordVC: UIViewController {
     
     var collectionView: UICollectionView! = nil
     var conditionArray: Array = ["早饭前", "早饭后", "午饭前", "午饭后", "晚饭前", "晚饭后", "睡前"]
+    var currentHideTextFieldRect: CGRect = CGRect.zero
 
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+//        IQKeyboardManager.shared.enable = false
+//    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(true)
+//        IQKeyboardManager.shared.enable = true
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Grid"
         configureHierarchy()
         configureDataSource()
         view.backgroundColor = UIColor.red
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardDidShow(notification:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RecordVC.handleKeyboardDidHide(notification:)), name: UIResponder.keyboardDidHideNotification, object: nil)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         
     }
+}
+
+extension RecordVC {
+    
+    @objc func handleKeyboardWillShow(notification: Notification) {
+       // print("handleKeyboardWillShow")
+        //print(notification.userInfo)
+
+    }
+
+    @objc func handleKeyboardDidShow(notification: Notification) {
+       // print("handleKeyboardDidShow")
+        //print(notification.userInfo)
+    }
+
+    @objc func handleKeyboardDidHide(notification: Notification) {
+       // print("handleKeyboardDidHide")
+        //print(notification.userInfo)
+    }
+    
 }
 
 extension RecordVC {
@@ -78,12 +112,14 @@ extension RecordVC {
 
 extension RecordVC {
     private func configureHierarchy() {
-//        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), collectionViewLayout: createLayout())
+       // collectionView = UICollectionView(frame: CGRect(x: 0, y: 64, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height), collectionViewLayout: createLayout())
         collectionView = UICollectionView(frame: view.frame, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         collectionView.delegate = self
+       
         view.addSubview(collectionView)
+        
     }
     private func configureDataSource() {
         
@@ -96,6 +132,8 @@ extension RecordVC {
             //cell.bloodSugarTextfiled.text = self.textCellTextfiledTextAndIdentifierDataSource[identifier].bloodSugerContentStr
             
             cell.delegate = self
+            cell.delegate2 = self
+            cell.delegate3 = self
             cell.conditionLabel.text = self.conditionArray[(identifier % 7)]
             cell.contentView.backgroundColor = UIColor.orange
             cell.layer.borderColor = UIColor.black.cgColor
@@ -356,11 +394,15 @@ extension RecordVC {
 
 extension RecordVC: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        //IQKeyboardManager.shared.resignFirstResponder()
         UIApplication.shared.keyWindow?.endEditing(true)
+       // print(collectionView)
+        //print(collectionView.contentOffset)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+       // print(indexPath)
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(collectionView.contentOffset)
     }
 }
 
@@ -369,4 +411,34 @@ extension RecordVC: TTextCellTextFiledDidEndEditing {
         self.textCellTextfiledTextArrayUsingIdentifier[cellIdentifier] = textFiledText
         UserDefaults.standard.setValue(self.textCellTextfiledTextArrayUsingIdentifier, forKey: "textCellTextfiledTextArrayUsingIdentifier")
     }
+}
+
+extension RecordVC: TTextCellTextFiledShouldBeginEditing {
+    func textCellTextFiledShouldBeginEditing(currentTextFieldRect: CGRect) {
+        //判断键盘是否有遮挡，如果有移动视图
+        if currentTextFieldRect.minY * (-1) > 407 {
+            //有遮挡 向上移动collectionview
+//            self.collectionView.scrollRectToVisible(<#T##rect: CGRect##CGRect#>, animated: <#T##Bool#>)
+            print(self.collectionView.contentOffset)
+            let contentOffset = CGPoint(x: 0, y: self.collectionView.contentOffset.y + (260 + 26 - (667 - currentTextFieldRect.minY * (-1))))
+            self.collectionView.setContentOffset(contentOffset, animated: true)
+            print("contentOffset!!!\(self.collectionView.contentOffset)")
+             currentHideTextFieldRect = currentTextFieldRect
+        } else {
+            // 无遮挡
+            
+        }
+    }
+}
+
+extension RecordVC: doneClickedProtocol {
+    func doneclicked(btn: UIButton) {
+        // 恢复collectionView的偏移量
+        print(self.collectionView.contentOffset)
+        
+        let contentOffset = CGPoint(x: 0, y: self.collectionView.contentOffset.y - ((260 + 26 - (667 - currentHideTextFieldRect.minY * (-1)))))
+        self.collectionView.setContentOffset(contentOffset, animated: true)
+    }
+    
+    
 }
