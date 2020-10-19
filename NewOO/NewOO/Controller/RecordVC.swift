@@ -28,11 +28,6 @@ class RecordVC: UIViewController {
             UserDefaults.standard.setValue(temp, forKey: "textCellTextfiledTextArrayUsingIdentifier")
             return temp
         }
-        
-//        var temp: [String] = []
-//        for i in 0..<350 {
-//            temp.append("")
-//        }
         return myDefaults
     }()
     
@@ -47,6 +42,7 @@ class RecordVC: UIViewController {
         configureHierarchy()
         configureDataSource()
         view.backgroundColor = UIColor.red
+        
     }
 }
 
@@ -360,7 +356,8 @@ extension RecordVC {
 
 extension RecordVC: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        IQKeyboardManager.shared.resignFirstResponder()
+        //IQKeyboardManager.shared.resignFirstResponder()
+        UIApplication.shared.keyWindow?.endEditing(true)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)

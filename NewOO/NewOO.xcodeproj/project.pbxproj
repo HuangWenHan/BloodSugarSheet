@@ -122,17 +122,12 @@
 		1600253F253C607D000BC4DB /* NewOO */ = {
 			isa = PBXGroup;
 			children = (
-				1685FBCB253CE82D00D95EA6 /* BottomBtnCell.swift */,
-				1685FBCA253CE82D00D95EA6 /* ContentLabelCell.swift */,
-				160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */,
-				160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */,
-				16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */,
+				1685FBE9253D6F8400D95EA6 /* Extension */,
+				1685FBE8253D6F0400D95EA6 /* Views */,
+				1685FBE7253D6EEF00D95EA6 /* Controller */,
 				16002540253C607D000BC4DB /* AppDelegate.swift */,
-				1600257E253C726D000BC4DB /* TextCell.swift */,
 				16002542253C607D000BC4DB /* SceneDelegate.swift */,
-				16002544253C607D000BC4DB /* ViewController.swift */,
 				1685FBDB253CF85A00D95EA6 /* DateValueFormatter.swift */,
-				1685FBC2253CE79700D95EA6 /* RecordVC.swift */,
 				16002546253C607D000BC4DB /* Main.storyboard */,
 				16002549253C607E000BC4DB /* Assets.xcassets */,
 				1600254B253C607E000BC4DB /* LaunchScreen.storyboard */,
@@ -157,6 +152,35 @@
 				16002564253C607E000BC4DB /* Info.plist */,
 			);
 			path = NewOOUITests;
+			sourceTree = "<group>";
+		};
+		1685FBE7253D6EEF00D95EA6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				16002544253C607D000BC4DB /* ViewController.swift */,
+				1685FBC2253CE79700D95EA6 /* RecordVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1685FBE8253D6F0400D95EA6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1600257E253C726D000BC4DB /* TextCell.swift */,
+				1685FBCB253CE82D00D95EA6 /* BottomBtnCell.swift */,
+				1685FBCA253CE82D00D95EA6 /* ContentLabelCell.swift */,
+				16002598253C99CB000BC4DB /* TitleSupplementaryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1685FBE9253D6F8400D95EA6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				160025A5253C9DB9000BC4DB /* UIButton+Extension.swift */,
+				160025A6253C9DB9000BC4DB /* UILabel+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		232ABF541FFA60BEE943A1CC /* Frameworks */ = {

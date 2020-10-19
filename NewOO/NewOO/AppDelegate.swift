@@ -14,12 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-          IQKeyboardManager.shared.enable = true
-          IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "确认"
-          IQKeyboardManager.shared.toolbarNextBarButtonItemText = "下一个"
-          IQKeyboardManager.shared.toolbarPreviousBarButtonItemText = "上一个"
-          IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-//        IQKeyboardManager.shared.enableAutoToolbar = false
+//          IQKeyboardManager.shared.enable = true
+//          IQKeyboardManager.shared.toolbarDoneBarButtonItemText = "确认"
+//          IQKeyboardManager.shared.toolbarNextBarButtonItemText = "下一个"
+//          IQKeyboardManager.shared.toolbarPreviousBarButtonItemText = "上一个"
+//          IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         return true
     }
 
