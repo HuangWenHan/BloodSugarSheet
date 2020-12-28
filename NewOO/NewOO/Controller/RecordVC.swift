@@ -418,6 +418,7 @@ extension RecordVC: UICollectionViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIApplication.shared.keyWindow?.endEditing(true)
         isTextFieldHiden = false
+        
     }
 }
 

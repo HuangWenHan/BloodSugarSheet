@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     override func loadView() {
         super.loadView()
         setupUI()
-        
+        print("test")
     }
     
     override func viewDidLoad() {
